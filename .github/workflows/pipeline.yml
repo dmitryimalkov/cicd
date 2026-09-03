@@ -1,0 +1,58 @@
+name: Deploy and Architecture Sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docker-compose.yml'
+      - 'workspace.dsl'
+
+jobs:
+  # ---------- JOB 1: Deploy ----------
+  deploy:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.modified, 'docker-compose.yml')
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate compose file
+        run: docker compose -f docker-compose.yml config -q
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            set -e
+            cd /opt/myapp
+            git pull origin main
+            docker compose config -q
+            docker compose up -d
+            docker compose ps
+
+  # ---------- JOB 2: Architecture drift-check + render ----------
+  architecture-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml
+
+      - name: Check drift and stub new containers
+        run: python scripts/sync_dsl_with_compose.py
+
+      - name: Render diagrams
+        run: bash scripts/render_architecture.sh
+
+      - name: Commit updated dsl and diagrams
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add workspace.dsl architecture/diagrams
+          git diff --staged --quiet || git commit -m "docs: auto-sync architecture with docker-compose"
+          git push
