@@ -17,9 +17,12 @@ docker run --rm \
   structurizr/cli export -workspace "$WORKSPACE_FILE" -format plantuml -output "$OUTPUT_DIR"
 
 echo "==> Рендер PlantUML в PNG"
-docker run --rm \
-  -v "$(pwd)/$OUTPUT_DIR:/data" \
-  plantuml/plantuml -tpng "/data/*.puml"
+for f in "$OUTPUT_DIR"/*.puml; do
+  fname=$(basename "$f")
+  docker run --rm \
+    -v "$(pwd)/$OUTPUT_DIR:/data" \
+    plantuml/plantuml -tpng "/data/$fname"
+done
 
 echo "==> Готово. Файлы в $OUTPUT_DIR"
 ls -la "$OUTPUT_DIR"
