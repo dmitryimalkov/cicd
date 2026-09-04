@@ -31,3 +31,8 @@ services:
 
 volumes:
   postgres_data:
+
+  worker:
+    build: ./worker
+    depends_on:
+      - redis
