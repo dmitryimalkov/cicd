@@ -1,7 +1,7 @@
 workspace "Test Stand" "Минимальная C4-модель тестового стенда на docker-compose" {
 
     model {
-        user = person "Пользователь" "Обращается к приложению через браузер"
+        user = person "Пользователь" "Обращается к приложению (APP) через браузер"
 
         softwareSystem = softwareSystem "Test Application" "Тестовое приложение на docker-compose" {
 
@@ -53,3 +53,4 @@ workspace "Test Stand" "Минимальная C4-модель тестовог�
     }
 
 }
+// test render fix
