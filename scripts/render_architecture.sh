@@ -3,18 +3,19 @@ set -e
 
 WORKSPACE_FILE="workspace.dsl"
 OUTPUT_DIR="architecture/diagrams"
+STRUCTURIZR_CLI_VERSION="2024.09.06"
 
 mkdir -p "$OUTPUT_DIR"
 
 echo "==> Валидация DSL"
 docker run --rm \
   -v "$(pwd):/usr/local/structurizr" \
-  structurizr/cli validate -workspace "$WORKSPACE_FILE"
+  structurizr/cli:$STRUCTURIZR_CLI_VERSION validate -workspace "$WORKSPACE_FILE"
 
 echo "==> Экспорт в PlantUML"
 docker run --rm \
   -v "$(pwd):/usr/local/structurizr" \
-  structurizr/cli export -workspace "$WORKSPACE_FILE" -format plantuml -output "$OUTPUT_DIR"
+  structurizr/cli:$STRUCTURIZR_CLI_VERSION export -workspace "$WORKSPACE_FILE" -format plantuml -output "$OUTPUT_DIR"
 
 echo "==> Содержимое $OUTPUT_DIR после экспорта:"
 ls -la "$OUTPUT_DIR"
