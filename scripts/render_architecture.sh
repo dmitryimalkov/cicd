@@ -3,7 +3,7 @@ set -e
 
 WORKSPACE_FILE="workspace.dsl"
 OUTPUT_DIR="architecture/diagrams"
-STRUCTURIZR_CLI_VERSION="2024.09.06"
+STRUCTURIZR_CLI_VERSION="2024.12.07"
 
 mkdir -p "$OUTPUT_DIR"
 
