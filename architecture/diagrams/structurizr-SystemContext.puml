@@ -1,0 +1,33 @@
+@startuml
+set separator none
+title Test Application - System Context
+
+top to bottom direction
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+
+hide stereotype
+
+skinparam rectangle<<TestApplication>> {
+  BackgroundColor #1168bd
+  FontColor #ffffff
+  BorderColor #0b4884
+  shadowing false
+}
+skinparam person<<Пользователь>> {
+  BackgroundColor #08427b
+  FontColor #ffffff
+  BorderColor #052e56
+  shadowing false
+}
+
+person "==Пользователь\n<size:10>[Person]</size>\n\nОбращается к приложению (APP) через браузер" <<Пользователь>> as Пользователь
+rectangle "==Test Application\n<size:10>[Software System]</size>\n\nТестовое приложение на docker-compose" <<TestApplication>> as TestApplication
+
+Пользователь .[#707070,thickness=2].> TestApplication : "<color:#707070>Открывает в браузере\n<color:#707070><size:8>[HTTPS]</size>"
+@enduml

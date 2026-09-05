@@ -1,0 +1,65 @@
+@startuml
+set separator none
+title Test Application - Containers
+
+top to bottom direction
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+
+hide stereotype
+
+skinparam rectangle<<TestApplication.app>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2e6295
+  shadowing false
+}
+skinparam rectangle<<TestApplication.nginx>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  shadowing false
+}
+skinparam database<<TestApplication.postgres>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2e6295
+  shadowing false
+}
+skinparam database<<TestApplication.redis>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2e6295
+  shadowing false
+}
+skinparam person<<Пользователь>> {
+  BackgroundColor #08427b
+  FontColor #ffffff
+  BorderColor #052e56
+  shadowing false
+}
+skinparam rectangle<<TestApplication>> {
+  BorderColor #0b4884
+  FontColor #0b4884
+  shadowing false
+}
+
+person "==Пользователь\n<size:10>[Person]</size>\n\nОбращается к приложению (APP) через браузер" <<Пользователь>> as Пользователь
+
+rectangle "Test Application\n<size:10>[Software System]</size>" <<TestApplication>> {
+  rectangle "==nginx\n<size:10>[Container: nginx]</size>\n\nReverse proxy, точка входа снаружи" <<TestApplication.nginx>> as TestApplication.nginx
+  rectangle "==app\n<size:10>[Container: custom build]</size>\n\nBackend-приложение" <<TestApplication.app>> as TestApplication.app
+  database "==postgres\n<size:10>[Container: PostgreSQL]</size>\n\nОсновная БД" <<TestApplication.postgres>> as TestApplication.postgres
+  database "==redis\n<size:10>[Container: Redis]</size>\n\nКэш / очереди" <<TestApplication.redis>> as TestApplication.redis
+}
+
+TestApplication.app .[#707070,thickness=2].> TestApplication.postgres : "<color:#707070>Читает/пишет данные\n<color:#707070><size:8>[SQL/TCP]</size>"
+TestApplication.app .[#707070,thickness=2].> TestApplication.redis : "<color:#707070>Кэширует данные\n<color:#707070><size:8>[Redis protocol]</size>"
+Пользователь .[#707070,thickness=2].> TestApplication.nginx : "<color:#707070>Открывает в браузере\n<color:#707070><size:8>[HTTPS]</size>"
+TestApplication.nginx .[#707070,thickness=2].> TestApplication.app : "<color:#707070>Проксирует запросы\n<color:#707070><size:8>[HTTP]</size>"
+@enduml
