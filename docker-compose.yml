@@ -29,12 +29,10 @@ services:
   redis:
     image: redis:7
 
-volumes:
-  postgres_data:
-
   worker:
     build: ./worker
     depends_on:
       - redis
-# test deploy Sat Sep  5 06:48:14 MSK 2026
-# test deploy v2 Sat Sep  5 07:09:05 MSK 2026
+
+volumes:
+  postgres_data:
