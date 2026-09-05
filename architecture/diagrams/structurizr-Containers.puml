@@ -58,15 +58,16 @@ skinparam rectangle<<TestApplication>> {
 person "==Пользователь\n<size:10>[Person]</size>\n\nОбращается к приложению (APP) через браузер" <<Пользователь>> as Пользователь
 
 rectangle "Test Application\n<size:10>[Software System]</size>" <<TestApplication>> {
-  rectangle "==worker\n<size:10>[Container: TODO: технология]</size>\n\nTODO: описать назначение" <<TestApplication.worker>> as TestApplication.worker
   rectangle "==nginx\n<size:10>[Container: nginx]</size>\n\nReverse proxy, точка входа снаружи" <<TestApplication.nginx>> as TestApplication.nginx
   rectangle "==app\n<size:10>[Container: custom build]</size>\n\nBackend-приложение" <<TestApplication.app>> as TestApplication.app
   database "==postgres\n<size:10>[Container: PostgreSQL]</size>\n\nОсновная БД" <<TestApplication.postgres>> as TestApplication.postgres
   database "==redis\n<size:10>[Container: Redis]</size>\n\nКэш / очереди" <<TestApplication.redis>> as TestApplication.redis
+  rectangle "==worker\n<size:10>[Container: Python]</size>\n\nФоновый обработчик задач из очереди" <<TestApplication.worker>> as TestApplication.worker
 }
 
+TestApplication.nginx .[#707070,thickness=2].> TestApplication.app : "<color:#707070>Проксирует запросы\n<color:#707070><size:8>[HTTP]</size>"
 TestApplication.app .[#707070,thickness=2].> TestApplication.postgres : "<color:#707070>Читает/пишет данные\n<color:#707070><size:8>[SQL/TCP]</size>"
 TestApplication.app .[#707070,thickness=2].> TestApplication.redis : "<color:#707070>Кэширует данные\n<color:#707070><size:8>[Redis protocol]</size>"
+TestApplication.worker .[#707070,thickness=2].> TestApplication.redis : "<color:#707070>Читает задачи из очереди\n<color:#707070><size:8>[Redis protocol]</size>"
 Пользователь .[#707070,thickness=2].> TestApplication.nginx : "<color:#707070>Открывает в браузере\n<color:#707070><size:8>[HTTPS]</size>"
-TestApplication.nginx .[#707070,thickness=2].> TestApplication.app : "<color:#707070>Проксирует запросы\n<color:#707070><size:8>[HTTP]</size>"
 @enduml
