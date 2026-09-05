@@ -51,9 +51,12 @@ def add_stub_containers(content, missing_services):
 
     stub_lines = []
     for svc in sorted(missing_services):
+        # Комментарий вынесен на отдельную строку ДО объявления контейнера —
+        # так надёжнее для парсера Structurizr DSL, чем комментарий в конце
+        # той же строки, что и объявление container.
+        stub_lines.append("            // auto-added, требует ручного заполнения связей (Rel)")
         stub_lines.append(
-            f'            {svc} = container "{svc}" "TODO: описать назначение" '
-            f'"TODO: технология"  // auto-added, требует ручного заполнения связей'
+            f'            {svc} = container "{svc}" "TODO: описать назначение" "TODO: технология"'
         )
 
     lines[insert_idx:insert_idx] = stub_lines
