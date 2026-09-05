@@ -9,13 +9,13 @@ workspace "Test Stand" "Минимальная C4-модель тестовог�
             app = container "app" "Backend-приложение" "custom build"
             postgres = container "postgres" "Основная БД" "PostgreSQL" "Database"
             redis = container "redis" "Кэш / очереди" "Redis" "Database"
+            worker = container "worker" "Фоновый обработчик задач из очереди" "Python"
 
             user -> nginx "Открывает в браузере" "HTTPS"
             nginx -> app "Проксирует запросы" "HTTP"
             app -> postgres "Читает/пишет данные" "SQL/TCP"
             app -> redis "Кэширует данные" "Redis protocol"
             worker -> redis "Читает задачи из очереди" "Redis protocol"
-            worker = container "worker" "Фоновый обработчик задач из очереди" "Python"
         }
     }
 
@@ -55,5 +55,4 @@ workspace "Test Stand" "Минимальная C4-модель тестовог�
     }
 
 }
-// retest drift-check Sat Sep  5 08:16:21 MSK 2026
-// retest png render Sat Sep  5 08:31:08 MSK 2026
+
