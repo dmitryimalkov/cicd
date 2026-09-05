@@ -33,6 +33,7 @@ echo "==> Рендер PlantUML в PNG"
 for f in "${PUML_FILES[@]}"; do
   fname=$(basename "$f")
   docker run --rm \
+    --user "$(id -u):$(id -g)" \
     -v "$(pwd)/$OUTPUT_DIR:/data" \
     plantuml/plantuml -tpng "/data/$fname"
 done
