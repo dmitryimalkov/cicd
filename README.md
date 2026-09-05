@@ -1,6 +1,6 @@
 # Test Stand — CI/CD + автоматизация архитектуры
 
-ssh -i /Users/dmitry/Downloads/CICD user1@176.109.108.197
+ssh -i /Users/dmitry/Downloads/CICD/id_rsa user1@176.109.108.197
 
 
 ## Что мы строим
