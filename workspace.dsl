@@ -56,3 +56,4 @@ workspace "Test Stand" "Минимальная C4-модель тестовог�
 
 }
 
+// trigger cleanup
