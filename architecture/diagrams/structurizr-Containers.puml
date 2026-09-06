@@ -37,12 +37,6 @@ skinparam database<<TestApplication.redis>> {
   BorderColor #2e6295
   shadowing false
 }
-skinparam rectangle<<TestApplication.worker>> {
-  BackgroundColor #438dd5
-  FontColor #ffffff
-  BorderColor #2e6295
-  shadowing false
-}
 skinparam person<<Пользователь>> {
   BackgroundColor #08427b
   FontColor #ffffff
@@ -62,12 +56,10 @@ rectangle "Test Application\n<size:10>[Software System]</size>" <<TestApplicatio
   rectangle "==app\n<size:10>[Container: custom build]</size>\n\nBackend-приложение" <<TestApplication.app>> as TestApplication.app
   database "==postgres\n<size:10>[Container: PostgreSQL]</size>\n\nОсновная БД" <<TestApplication.postgres>> as TestApplication.postgres
   database "==redis\n<size:10>[Container: Redis]</size>\n\nКэш / очереди" <<TestApplication.redis>> as TestApplication.redis
-  rectangle "==worker\n<size:10>[Container: Python]</size>\n\nФоновый обработчик задач из очереди" <<TestApplication.worker>> as TestApplication.worker
 }
 
-TestApplication.nginx .[#707070,thickness=2].> TestApplication.app : "<color:#707070>Проксирует запросы\n<color:#707070><size:8>[HTTP]</size>"
 TestApplication.app .[#707070,thickness=2].> TestApplication.postgres : "<color:#707070>Читает/пишет данные\n<color:#707070><size:8>[SQL/TCP]</size>"
 TestApplication.app .[#707070,thickness=2].> TestApplication.redis : "<color:#707070>Кэширует данные\n<color:#707070><size:8>[Redis protocol]</size>"
-TestApplication.worker .[#707070,thickness=2].> TestApplication.redis : "<color:#707070>Читает задачи из очереди\n<color:#707070><size:8>[Redis protocol]</size>"
 Пользователь .[#707070,thickness=2].> TestApplication.nginx : "<color:#707070>Открывает в браузере\n<color:#707070><size:8>[HTTPS]</size>"
+TestApplication.nginx .[#707070,thickness=2].> TestApplication.app : "<color:#707070>Проксирует запросы\n<color:#707070><size:8>[HTTP]</size>"
 @enduml

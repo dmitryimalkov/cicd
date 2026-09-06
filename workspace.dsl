@@ -9,13 +9,11 @@ workspace "Test Stand" "Минимальная C4-модель тестовог�
             app = container "app" "Backend-приложение" "custom build"
             postgres = container "postgres" "Основная БД" "PostgreSQL" "Database"
             redis = container "redis" "Кэш / очереди" "Redis" "Database"
-            worker = container "worker" "Фоновый обработчик задач из очереди" "Python"
 
             user -> nginx "Открывает в браузере" "HTTPS"
             nginx -> app "Проксирует запросы" "HTTP"
             app -> postgres "Читает/пишет данные" "SQL/TCP"
             app -> redis "Кэширует данные" "Redis protocol"
-            worker -> redis "Читает задачи из очереди" "Redis protocol"
         }
     }
 
