@@ -1,5 +1,7 @@
 # Test Stand — CI/CD + автоматизация архитектуры
 
+Пуш: 1
+
 ssh -i /Users/dmitry/Downloads/CICD/id_rsa user1@176.109.108.197
 cd /opt/myapp
 
