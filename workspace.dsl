@@ -16,6 +16,7 @@ workspace "Test Stand" "Минимальная C4-модель тестовог�
             app -> redis "Кэширует данные" "Redis protocol"
             // auto-added, требует ручного заполнения связей (Rel)
             worker = container "worker" "TODO: описать назначение" "TODO: технология"
+            worker -> redis "Считывает очередь" "172.12.12.12"
         }
     }
 
