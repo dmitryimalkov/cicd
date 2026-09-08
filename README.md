@@ -2,7 +2,13 @@
 
 Пуш: 1
 
+Mac
 ssh -i /Users/dmitry/Downloads/CICD/id_rsa user1@176.109.108.197
+
+Win
+ssh -i \Users\malkov.d\Documents\projects\cicd\id_rsa user1@176.109.108.197
+
+
 cd /opt/myapp
 
 ## Что мы строим
