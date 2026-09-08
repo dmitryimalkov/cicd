@@ -29,12 +29,6 @@ services:
   redis:
     image: redis:7
 
-  worker:
-    build: ./worker
-    depends_on:
-      - redis
-
-
 
 volumes:
   postgres_data:
