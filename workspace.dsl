@@ -1,4 +1,4 @@
-workspace "Test Stand" "Минимальная C4-модель тестового стенда на docker-compose." {
+workspace "Test Stand" "Минимальная C4-модель тестового стенда на docker-compose" {
 
     model {
         user = person "Пользователь" "Обращается к приложению (APP) через браузер"
