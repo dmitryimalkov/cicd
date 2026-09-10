@@ -67,6 +67,7 @@ rectangle "Test Application\n<size:10>[Software System]</size>" <<TestApplicatio
 
 TestApplication.app .[#707070,thickness=2].> TestApplication.postgres : "<color:#707070>Читает/пишет данные\n<color:#707070><size:8>[SQL/TCP]</size>"
 TestApplication.app .[#707070,thickness=2].> TestApplication.redis : "<color:#707070>Кэширует данные\n<color:#707070><size:8>[Redis protocol]</size>"
+TestApplication.worker .[#707070,thickness=2].> TestApplication.redis : "<color:#707070>"
 Пользователь .[#707070,thickness=2].> TestApplication.nginx : "<color:#707070>Открывает в браузере\n<color:#707070><size:8>[HTTPS]</size>"
 TestApplication.nginx .[#707070,thickness=2].> TestApplication.app : "<color:#707070>Проксирует запросы\n<color:#707070><size:8>[HTTP]</size>"
 @enduml
