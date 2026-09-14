@@ -14,10 +14,6 @@ workspace "Test Stand" "Минимальная C4-модель тестовог�
             nginx -> app "Проксирует запросы" "HTTP"
             app -> postgres "Читает/пишет данные" "SQL/TCP"
             app -> redis "Кэширует данные" "Redis protocol"
-            // auto-added, требует ручного заполнения связей (Rel)
-            worker = container "worker" "Тестирование" "Тестирование"
-            worker -> redis "Synch"
-            worker -> postgres "Соединение с Postgres"
         }
     }
 
