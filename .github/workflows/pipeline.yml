@@ -8,7 +8,6 @@ on:
       - 'workspace.dsl'
 
 jobs:
-  # ---------- JOB 1: Deploy ----------
   deploy:
     runs-on: ubuntu-latest
     permissions:
@@ -31,10 +30,9 @@ jobs:
             cd /opt/myapp
             git pull origin main
             docker compose config -q
-            docker compose up -d
+            docker compose up -d --remove-orphans
             docker compose ps
 
-  # ---------- JOB 2: Architecture drift-check + render ----------
   architecture-sync:
     runs-on: ubuntu-latest
     permissions:
