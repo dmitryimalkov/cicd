@@ -1,6 +1,6 @@
 # Test Stand — CI/CD + автоматизация архитектуры
 
-Пуш: 1
+Пуш: 1.
 
 Mac
 ssh -i /Users/dmitry/Downloads/CICD/id_rsa user1@176.109.108.197
